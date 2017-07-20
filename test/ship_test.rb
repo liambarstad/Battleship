@@ -43,4 +43,22 @@ class ShipTest < Minitest::Test
     expected = {"C" => {3 => " ", 4 => " ", 5 => " "}}
     assert_equal expected, ship.coordinates_hash
   end
+
+  def test_make_illegal_coordinates_hash
+    ship = Ship.new(3, ["C"], [1, 4, 7])
+    assert ship.coordinates_hash.empty?
+  end
+
+  def test_if_sunk_false
+    ship = Ship.new(3, ["C"], [3, 4, 5])
+    assert_equal false, ship.check_if_sunk
+    assert_equal false, ship.sunk
+  end
+
+  def test_if_sunk_true
+    ship = Ship.new(3, ["C"], [3, 4, 5])
+    ship.coordinates_hash = {"C" => {3 => "H", 4 => "H", 5 => "H"}}
+    assert_equal true, ship.check_if_sunk
+    assert_equal true, ship.sunk
+  end
 end

@@ -50,12 +50,18 @@ class Ship
           @coordinates_hash[column_value].store(row_value, " ")
         end
       end
-      # else auto_initialize
     end
   end
 
-  # def check_sides(*row_values, *column_values)
-  #   side_string = ""
-  #
-  # def auto_initialize
+  def check_if_sunk
+    @sunk = true
+    @coordinates_hash.keys.each do |column|
+      @coordinates_hash[column].keys.each do |row|
+        if @coordinates_hash[column][row] == " "
+          @sunk = false
+        end
+      end
+    end
+    return @sunk
+  end
 end
